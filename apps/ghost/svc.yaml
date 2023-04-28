@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  #type: LoadBalancer
+  type: ClusterIP
+  ports:
+    # the port that this service should serve on
+  - port: 80 
+    targetPort: 2368
+  selector:
+    app: ghost

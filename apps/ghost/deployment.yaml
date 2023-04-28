@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: ghost:5.19.0-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: url
+              value: http://blog.jiji.playground.padok.cloud
+            - name: database__client
+              value: sqlite3
+            - name: database__connection__filename
+              value: content/data/ghost.db
+            - name: database__useNullAsDefault
+              value: "true"
+            - name: database__debug
+              value: "false"
+          ports:
+            - name: ghost
+              containerPort: 2368
